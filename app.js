@@ -1,5 +1,6 @@
 //requires
 const Discord = require('discord.js');
+const prompt = require('prompt-sync')();
 
 //Discord API
 const client = new Discord.Client();
@@ -9,7 +10,13 @@ const botID = 799824814244233246;
 
 
 //Computer Vision API
-const key = '<private key goes here -- for testing, please watch presentation>';
+
+var key = "";
+
+while (key.length < 10) {
+    key = prompt('Cognitive key: ');
+}
+    
 const endpoint = 'https://discription.cognitiveservices.azure.com/';
 
 const async = require('async');
@@ -23,7 +30,6 @@ const ApiKeyCredentials = require('@azure/ms-rest-js').ApiKeyCredentials;
 
 const STATUS_SUCCEEDED = "succeeded";
 const STATUS_FAILED = "failed"
-
 
 const computerVisionClient = new ComputerVisionClient(
     new ApiKeyCredentials({ inHeader: { 'Ocp-Apim-Subscription-Key': key } }), endpoint);
@@ -39,14 +45,16 @@ var textinImage = "";
 var textinImgMsg = "";
 
 client.on('ready', () => {
-    console.log(`Discription ready!`);
+    console.log(`Discription ready!`); 
 });
+
+
 
 client.on('message', msg => {
 
     var Attachment = (msg.attachments).array();
 
-    if (msg.content.indexOf(0) === '>') {
+    if (msg.content.startsWith('>')) {
         if (msg.content.includes("toggle")) {
             isActive = !isActive;
 
@@ -57,6 +65,9 @@ client.on('message', msg => {
                 msg.channel.send('Discription is now inactive! See you later!');
             }
 
+        }
+        else {
+            msg.channel.send("Command not recognized! Maybe you meant the toggle command? (>toggle)");
         }
     }
     else if ((msg.attachments.size > 0) && (isActive) && (msg.author.id != botID)) {
