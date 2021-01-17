@@ -9,7 +9,7 @@ const botID = 799824814244233246;
 
 
 //Computer Vision API
-const key = '4acdfef163d34f398fef763ec8758a33';
+const key = '<private key goes here -- for testing, please watch presentation>';
 const endpoint = 'https://discription.cognitiveservices.azure.com/';
 
 const async = require('async');
