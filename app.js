@@ -4,10 +4,12 @@ const prompt = require('prompt-sync')();
 
 //Discord API
 const client = new Discord.Client();
-client.login("Nzk5ODI0ODE0MjQ0MjMzMjQ2.YAJM5w.wSOLlQjA3__Hf9CwmNbUiNXyDzc");
+
 
 const botID = 799824814244233246;
+const botToken = prompt('Bot token: ');
 
+client.login(botToken);
 
 //Computer Vision API
 
